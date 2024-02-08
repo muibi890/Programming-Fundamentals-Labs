@@ -1,91 +1,73 @@
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 using namespace std;
 
-void rotateleft(char str[]);
+void rotateLeft(char str[]);
+void sort2DAlphabetically(char arr[][50], int rows);
+
 char st[50];
 char ar[50][50];
-void sort2DAlphabetically(char arr[][50] , int rows);
 
 int main()
 {
-	//char st[50];
-	int strLength = 0;
-	//char ar[50][50];
+    int strLength = 0;
 
+    cout << "Enter the string: ";
+    cin >> st;
 
-	cout << "Enter the string: ";
-	cin >> st;
+    for (int i = 0; st[i] != '\0'; i++)
+    {
+        strLength++;
+    }
 
+    // Rotate and store rotated strings in the 2D array
+    for (int i = 0; i <= strLength; i++)
+    {
+        rotateLeft(st);
+        strcpy(ar[i], st);
+    }
 
-	for(int i = 0 ; st[i] != '\0' ; i++)
-	{
-		strLength++;
+    // Call the function to sort the 2D array alphabetically
+    sort2DAlphabetically(ar, strLength + 1);
 
-	}
-	cout << strLength;
+    // Print the sorted 2D array
+    cout << "Sorted 2D Array:" << endl;
+    for (int i = 0; i <= strLength; i++)
+    {
+        cout << ar[i] << endl;
+    }
 
-	for(int i = 0 ; i <= strLength ; i++)
-	{
-		rotateleft(st);
-		strcpy(ar[i], st);
-
-
-	}
-
-	system("pause");
+    system("pause");
+    return 0;
 }
 
-void rotateleft(char str[])
+void rotateLeft(char str[])
 {
-	int val = 0;
+    int val = strlen(str);
 
-	char temp;
-		for(int i = 0 ; str[i] != '\0' ; i++)  //Loop to calculate the length of the string 
-	{
-		val++;
-
-	}
-
-	for(int i = 0; i < val ; i++)  //Loop to rotate left
-	{
-		for(int j = 0; j < val; j++)
-		{
-
-		ar[i][j] = str[j];
-		cout << ar[i][j];
-
-		}
-		cout << endl;
-		for(int i = 0 ; i <val ; i++)
-		{
-		temp = str[i];
-		str[i] = str[i + 1];
-		str[val - 1] = temp;
-		}
-	}
-
-
-
-
-
+    char temp = str[0];
+    for (int i = 0; i < val - 1; i++)
+    {
+        str[i] = str[i + 1];
+    }
+    str[val - 1] = temp;
 }
-void sort2DAlphabetically(char arr[][50] , int rows)
+
+void sort2DAlphabetically(char arr[][50], int rows)
 {
-int val = 0;
 
-	char temp;
-		for(int i = 0 ; str[i] != '\0' ; i++)  //Loop to calculate the length of the string
-	{
-		val++;
-
-	}
-	for(int i = 0; 
-
-
-
-
-
-
+    for (int i = 0; i < rows - 1; i++)
+    {
+        for (int j = 0; j < rows - i - 1; j++)
+        {
+            if (strcmp(arr[j], arr[j + 1]) > 0)
+            {
+                char temp[50];
+                strcpy(temp, arr[j]);
+                strcpy(arr[j], arr[j + 1]);
+                strcpy(arr[j + 1], temp);
+            }
+        }
+    }
 }
